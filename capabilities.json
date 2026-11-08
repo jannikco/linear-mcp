@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "linear-mcp",
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "artifactType": "Hosted connector client",
+  "credential": "PIPMCP_API_KEY",
+  "connectorId": "linear",
+  "executionAuthority": "https://pipmcp.com/api/v1",
+  "inventory": "authenticated-dynamic",
+  "verification": {
+    "transport": "Tested",
+    "providerExecution": "Documented"
+  },
+  "skills": [
+    "pipmcp-linear"
+  ],
+  "offlineMode": "plan-and-fixtures-only",
+  "historicalVersions": "Older MIT local runtimes remain in Git history"
+}

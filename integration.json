@@ -1,263 +1,60 @@
 {
   "schemaVersion": 1,
-  "status": "ready",
-  "verification": "mock-only",
-  "releaseEligible": true,
-  "maintainer": "jannikco",
-  "license": "MIT",
-  "sourceRevision": "60597b78f34ec40d2ffec6d504de95c97132212ca2d1ef1617bd9e414f522ad3",
-  "evidence": [
-    "Actual tools/call and direct-provider request contract tests"
-  ],
-  "provenance": [
-    "https://linear.app/developers/graphql"
-  ],
   "id": "linear-mcp",
   "kind": "provider-connector",
   "product": "pipmcp",
   "title": "Linear MCP server",
-  "description": "Confirm the API key owner and collect a page of issues to summarize project activity.",
-  "operationIds": [
-    "get_viewer",
-    "list_issues"
+  "description": "Use Linear with AI agents through one PipMCP API key, actual hosted schemas and governed execution.",
+  "status": "ready",
+  "verification": "mock-only",
+  "releaseEligible": true,
+  "operationIds": [],
+  "maintainer": "jannikco",
+  "license": "MIT",
+  "attributionSlug": "github-linear-mcp",
+  "sourceRevision": "7e80afa375fdbbc8b5f85e4322c9792b01c97501d03e25515a36a9744e763e6a",
+  "qualityVersion": 2,
+  "artifactType": "connector",
+  "evidence": [
+    "Gateway HTTP transport fixtures",
+    "Generated stdio wrapper discovery/call fixtures"
   ],
+  "provenance": [
+    "https://linear.app/developers/graphql"
+  ],
+  "utility": {
+    "problem": "Confirm the API key owner and collect a page of issues to summarize project activity.",
+    "output": "Actual hosted tool schemas and durable governed execution receipts"
+  },
   "appSlug": "linear",
   "appName": "Linear",
-  "providerDocs": "https://raw.githubusercontent.com/linear/linear/master/packages/sdk/src/schema.graphql",
-  "providerWebsite": "https://linear.app/",
-  "authentication": {
-    "type": "api_key_header",
-    "requiredCredentialFields": [
-      "api_key"
-    ],
-    "settings": {
-      "parameter_name": "Authorization"
-    },
-    "requiredHeaderNames": [],
-    "helpUrl": "https://linear.app/developers/graphql",
-    "tenantRequired": false,
-    "accountParameterNames": []
-  },
-  "attributionSlug": "github-linear-mcp",
-  "artifactType": "connector",
-  "qualityVersion": 2,
   "connectorId": "linear",
-  "connector": {
-    "id": "linear",
-    "name": "Linear",
-    "version": "0.2.0",
-    "baseUrl": "https://api.linear.app",
-    "auth": {
-      "type": "header",
-      "env": "LINEAR_API_KEY",
-      "header": "Authorization"
-    },
-    "tools": [
-      {
-        "name": "get_viewer",
-        "description": "Read the authenticated Linear user through a fixed GraphQL query.",
-        "method": "POST",
-        "path": "/graphql",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {},
-          "body": {}
-        },
-        "sampleArguments": {},
-        "provenance": [
-          "https://linear.app/developers/graphql"
-        ],
-        "body": {
-          "query": "query Viewer { viewer { id name email } }"
-        }
-      },
-      {
-        "name": "list_issues",
-        "description": "Read a bounded page of issues using GraphQL variables.",
-        "method": "POST",
-        "path": "/graphql",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "first": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100
-            },
-            "after": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 512,
-              "description": "Identifier"
-            }
-          },
-          "required": [],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {},
-          "body": {
-            "first": "variables.first",
-            "after": "variables.after"
-          }
-        },
-        "sampleArguments": {
-          "first": 10
-        },
-        "provenance": [
-          "https://linear.app/developers/graphql"
-        ],
-        "body": {
-          "query": "query Issues($first: Int = 20, $after: String) { issues(first: $first, after: $after) { nodes { id identifier title } pageInfo { hasNextPage endCursor } } }"
-        },
-        "pagination": {
-          "type": "cursor",
-          "cursorInput": "after",
-          "nextCursorPath": "data.issues.pageInfo.endCursor",
-          "hasMorePath": "data.issues.pageInfo.hasNextPage"
-        }
-      }
-    ],
-    "workflow": {
-      "name": "Issue status brief",
-      "description": "Confirm the API key owner and collect a page of issues to summarize project activity.",
-      "steps": [
-        "get_viewer",
-        "list_issues"
-      ]
-    },
-    "provenance": [
-      "https://linear.app/developers/graphql"
-    ],
-    "verification": "mock-only",
-    "providerLiveValidation": "not-run",
-    "capabilityEvidence": {
-      "local": {
-        "level": "Tested",
-        "operations": [
-          {
-            "name": "get_viewer",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          },
-          {
-            "name": "list_issues",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          }
-        ],
-        "evidenceRefs": [
-          "Provider request/stdio contract tests"
-        ],
-        "mode": "local"
-      },
-      "managed": {
-        "level": "Documented",
-        "operations": [
-          {
-            "name": "get_viewer",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          },
-          {
-            "name": "list_issues",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          }
-        ],
-        "evidenceRefs": [],
-        "mode": "managed"
-      }
-    },
-    "repoId": "linear-mcp",
-    "appSlug": "linear",
-    "product": "pipmcp",
-    "artifactType": "connector",
-    "sourceRevision": "60597b78f34ec40d2ffec6d504de95c97132212ca2d1ef1617bd9e414f522ad3",
-    "authentication": {
-      "type": "api_key_header",
-      "requiredCredentialFields": [
-        "api_key"
-      ],
-      "settings": {
-        "parameter_name": "Authorization"
-      },
-      "requiredHeaderNames": [],
-      "helpUrl": "https://linear.app/developers/graphql",
-      "tenantRequired": false,
-      "accountParameterNames": []
-    },
-    "managedAvailability": {
-      "status": "import-required",
-      "integration": "graphql-to-mcp",
-      "checkedAt": "2026-11-08T12:29:10.433747+00:00"
-    }
-  },
+  "executionAuthority": "pipmcp-gateway",
+  "version": "1.0.0",
+  "agentReady": true,
   "capabilityEvidence": {
     "local": {
       "level": "Tested",
       "operations": [
         {
-          "name": "get_viewer",
+          "name": "gateway_transport",
           "level": "Tested",
+          "method": "contract-fixture",
           "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
-        },
-        {
-          "name": "list_issues",
-          "level": "Tested",
-          "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
+            "Generated gateway/stdio fixtures"
+          ]
         }
       ],
       "evidenceRefs": [
-        "Provider request/stdio contract tests"
+        "Generated gateway/stdio fixtures"
       ],
       "mode": "local"
     },
     "managed": {
       "level": "Documented",
-      "operations": [
-        {
-          "name": "get_viewer",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        },
-        {
-          "name": "list_issues",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        }
-      ],
+      "operations": [],
       "evidenceRefs": [],
       "mode": "managed"
     }
-  },
-  "utility": {
-    "problem": "Confirm the API key owner and collect a page of issues to summarize project activity.",
-    "output": "Actual provider API results through local MCP tools"
   }
 }

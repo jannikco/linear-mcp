@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-linear",
+      "description": "Connect AI agents to Linear using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-linear/SKILL.md": "118abad483edea98e802126c50a7af4804848e7e0c248aa4ac9fb4e61a2180ee"
+  }
+}
